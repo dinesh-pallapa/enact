@@ -308,12 +308,13 @@ const MarqueeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		static defaultProps = {
 			marqueeDelay: 1000,
-			// marqueeOn: 'focus',
 			marqueeOnRenderDelay: 1000,
 			marqueeResetDelay: 1000,
 			marqueeSpacing: '50%',
 			marqueeSpeed: 60
 		}
+
+		static contextType = MarqueeControllerContext
 
 		constructor (props) {
 			super(props);
@@ -404,8 +405,6 @@ const MarqueeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			off('keydown', this.handlePointerHide);
 		}
-
-		static contextType = MarqueeControllerContext
 
 		promoteJob = new Job(() => {
 			this.setState(state => state.promoted ? null : {promoted: true});
@@ -811,8 +810,6 @@ const MarqueeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				marqueeSpeed,
 				...rest
 			} = this.props;
-
-			console.log('marqueeOn:', marqueeOn, this.context && this.context.marqueeOn, children);
 
 			const marqueeOnFocus = marqueeOn === 'focus';
 			const marqueeOnHover = marqueeOn === 'hover';
